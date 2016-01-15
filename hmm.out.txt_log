@@ -1,0 +1,26 @@
+-r allele_count.base_call.txt
+-o hmm.out.txt
+-t bi
+-m 
+-z sample_hmm_model
+starting probs: 
+CC 0.2
+LL 0.4
+CL 0.4
+transition: 
+CC -> CC 0.99908720031296
+CC -> LL 0.0
+CC -> CL 9.12799687040107E-4
+
+LL -> CC 0.0
+LL -> LL 0.999725140118787
+LL -> CL 2.7485988121273E-4
+
+CL -> CC 4.01832355541268E-4
+CL -> LL 1.84842883548983E-4
+CL -> CL 0.99941332476091
+
+emission: 
+CC -> Discrete distribution --- CC 0, LL 0, CL 0, UN 0.979, CU 0.02, LU 0.001, AA 0, AB 0, AC 0, AL 0, BB 0, BC 0, BL 0, AP 0, BP 0, CP 0, LP 0, OP 0, OC 0, OL 0, OK 0, MP 0, MB 0, ML 0, MJ 0, NP 0, NB 0, NC 0, NI 0, IP 0, IA 0, IL 0, JP 0, JA 0, JC 0, KP 0, KA 0, KB 0, QP 0, QL 0, RP 0, RC 0, TP 0, TA 0, SP 0, SB 0
+LL -> Discrete distribution --- CC 0, LL 0, CL 0, UN 0.979, CU 0.001, LU 0.02, AA 0, AB 0, AC 0, AL 0, BB 0, BC 0, BL 0, AP 0, BP 0, CP 0, LP 0, OP 0, OC 0, OL 0, OK 0, MP 0, MB 0, ML 0, MJ 0, NP 0, NB 0, NC 0, NI 0, IP 0, IA 0, IL 0, JP 0, JA 0, JC 0, KP 0, KA 0, KB 0, QP 0, QL 0, RP 0, RC 0, TP 0, TA 0, SP 0, SB 0
+CL -> Discrete distribution --- CC 0, LL 0, CL 0, UN 0.978, CU 0.011, LU 0.011, AA 0, AB 0, AC 0, AL 0, BB 0, BC 0, BL 0, AP 0, BP 0, CP 0, LP 0, OP 0, OC 0, OL 0, OK 0, MP 0, MB 0, ML 0, MJ 0, NP 0, NB 0, NC 0, NI 0, IP 0, IA 0, IL 0, JP 0, JA 0, JC 0, KP 0, KA 0, KB 0, QP 0, QL 0, RP 0, RC 0, TP 0, TA 0, SP 0, SB 0

@@ -1,0 +1,6 @@
+Error in `[<-.data.frame`(`*tmp*`, d[, 3] == 0, 3, value = 1e-05) : 
+  missing values are not allowed in subscripted assignments of data frames
+Calls: main_f -> [<- -> [<-.data.frame
+In addition: Warning message:
+In Ops.factor(d[, 3], 100) : + not meaningful for factors
+Execution halted
