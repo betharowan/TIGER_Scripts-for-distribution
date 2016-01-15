@@ -14,7 +14,7 @@ This documentation file was written by Beth Rowan.
 
 Questions about these scripts can be directed to Beth Rowan (beth.rowan@tuebingen.mpg.de)
 
-Last updated 12 December 2015
+Last updated 15 January 2016
 
 #Getting started
 
