@@ -14,14 +14,14 @@ This documentation file was written by Beth Rowan.
 
 Questions about these scripts can be directed to Beth Rowan (beth.rowan@tuebingen.mpg.de)
 
-Last updated 12 December 2015
+Last updated 15 January 2016
 
 #Getting started
 
 1.Create input files and get set up
 
 Convert SHORE alignment output (map.list) or BWA alignment file (.bam) into an input file. The input file has a format like this:
-<chr><pos><parent1><#reads supporting parent1><parent2><#reads supporting parent 2>
+<#chr><#pos><#parent1allele><#reads supportingparent1allele><parent2allele><#readssupportingparent2allele>
 
 Make one file with all markers with only indels filtered out (this one is called “complete”)
 
