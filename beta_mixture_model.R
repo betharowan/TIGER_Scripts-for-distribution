@@ -92,8 +92,14 @@ m_step<-function(x,data,z,p)
 
 main_f<-function(filename)
 {
-	#d<-read.table("allele_count_population_corrected.base_call_pre")
-	d<-read.table(filename);	
+	
+	d<-read.table(filename);
+	
+	#sample down to 50%
+	k<-as.data.frame(table(d[,3]))
+	k[,2]<-k[,2]-k[,2]*0.5
+	d<-rep(as.numeric(levels(dd[,1]))[dd[,1]],dd[,2])
+		
 	d[,3]<-d[,3]+100
 	d[,3]<-d[,3]/200
 	d[d[,3]==0,3]<-0.00001 #beta function is not defined at 0 and 1 
@@ -101,18 +107,7 @@ main_f<-function(filename)
 	
 	data<-d[,3];
 	z<-c();
-	## for(i in 1:length(data))
-	## {
-	##     if(data[i]>0.75)
-	##     {
-	##         z<-append(z,3)
-	##     }else if(data[i]<0.25)
-	##     {
-	##         z<-append(z,1)
-	##     }else{
-	##         z<-append(z,2)	
-	##     }
-	## }
+	
 	
 	z<-matrix(0,length(data),3)
 	for(i in 1:length(data))
@@ -128,10 +123,7 @@ main_f<-function(filename)
 		}
 	}
 	x<-c(1,1,1,1,1,1);
-	#z<-data;
-	# z[z[]>0.75]<-3
-	# z[z[]>=0.25&z[]<=0.75]<-2
-	# z[z[]<0.25]<-1
+	
 	
 	
 	counter<-0;
@@ -139,10 +131,10 @@ main_f<-function(filename)
 	diff_log=1000000;
 	while(TRUE & counter < 100)
 	{
-		cat("counter: ",counter," \n");
+		#cat("counter: ",counter," \n");
 		#z<-model.matrix(~0 + as.factor(z));
 		p<-prob(z);
-		cat("p ",p,"\n");
+		#cat("p ",p,"\n");
 		#m-step
 		#v<-nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z)
 		v<-nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z,print.level=2)
