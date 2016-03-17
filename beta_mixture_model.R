@@ -97,15 +97,18 @@ main_f<-function(filename)
 	
 	#sample down to 50%
 	k<-as.data.frame(table(d[,3]))
-	k[,2]<-k[,2]-k[,2]*0.5
-	d<-rep(as.numeric(levels(dd[,1]))[dd[,1]],dd[,2])
-		
-	d[,3]<-d[,3]+100
-	d[,3]<-d[,3]/200
-	d[d[,3]==0,3]<-0.00001 #beta function is not defined at 0 and 1 
-	d[d[,3]==1,3]<-1-0.00001
+	k[,2]<-k[,2]*0.5
+	data<-rep(as.numeric(levels(k[,1]))[k[,1]],k[,2])
+	data <- data + 100
+	data <- data/200
+	data[data==0] = -0.00001
+	data[data==1] = 1-0.00001
+	#d[,3]<-d[,3]+100
+	#d[,3]<-d[,3]/200
+	#d[d[,3]==0,3]<-0.00001 #beta function is not defined at 0 and 1 
+	#d[d[,3]==1,3]<-1-0.00001
 	
-	data<-d[,3];
+	#data<-d[,3];
 	z<-c();
 	
 	
