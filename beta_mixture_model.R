@@ -101,7 +101,7 @@ main_f<-function(filename)
 	data<-rep(as.numeric(levels(k[,1]))[k[,1]],k[,2])
 	data <- data + 100
 	data <- data/200
-	data[data==0] = -0.00001
+	data[data==0] = 0.00001
 	data[data==1] = 1-0.00001
 	#d[,3]<-d[,3]+100
 	#d[,3]<-d[,3]/200
