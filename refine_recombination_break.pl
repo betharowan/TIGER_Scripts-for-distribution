@@ -51,16 +51,7 @@ my %BREAK_GENOTYPES = ();
 
 while (<FILE>) {
         my @a = split " ";
-	
-	if($a[1] == 1 && abs(17534000- $a[2])<=1000)
-	{
-		next;
-	}
-	$SAMPLE = $a[0];
-	if($a[1] == 1 && abs(17534000- $a[2])<=1000)
-	{
-		next;
-	}
+
 	push @{$BREAK_STARTS{$a[1]}}, $a[2];
 	push @{$BREAK_ENDS{$a[1]}}, $a[3];
 	push @{$BREAK_GENOTYPES{$a[1]}}, $a[4];
