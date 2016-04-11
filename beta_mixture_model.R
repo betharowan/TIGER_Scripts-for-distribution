@@ -140,7 +140,7 @@ main_f<-function(filename)
 		#cat("p ",p,"\n");
 		#m-step
 		#v<-nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z)
-		v<-nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z,print.level=2)
+		v<-nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z,print.level=0)
 		if(length(v$estimate[v$estimate>50]))
 		{
 			break;
