@@ -24,7 +24,9 @@ Convert SHORE alignment output (map.list) or BWA alignment file (.bam) into an i
 <#chr><#pos><#parent1allele><#reads supportingparent1allele><parent2allele><#readssupportingparent2allele>
 
 After marker creation, contigs/scaffolds with low maker density has to be filtered out by running (minimum should be at least 100 markers or higher per contig/scaffold
-``` perl  filter_marker_set_density.pl -c marker_set -n minimum_number_of_markers -o output ```
+```
+perl  filter_marker_set_density.pl -c marker_set -n minimum_number_of_markers -o output
+```
 
 Make one file with all markers with only indels filtered out (this one is called “complete”)
 
