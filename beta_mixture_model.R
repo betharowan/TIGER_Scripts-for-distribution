@@ -1,4 +1,4 @@
-# TODO: Add comment
+#
 # 
 # Author: patel
 ###############################################################################
@@ -13,11 +13,11 @@ cutoffs<-function(p1,p2,alpha,beta)
 
 beta_prob<-function(y,alpha_v,beta_v)
 {
-	## if(alpha_v <0 | beta_v<0)
-	## {
-	##     return (-10000000000000);
-	## }
+	alpha_v[alpha_v==0]=100000000
+	beta_v[beta_v==0] = 100000000
 	
+	#print(alpha_v)
+	#print(beta_v)
 	return ((y^(alpha_v-1)*(1-y)^(beta_v-1))/beta(alpha_v, beta_v))
 }
 
@@ -46,12 +46,13 @@ mix_beta_model<-function(x,data,z,p_)
 	#cat("now running it with ",x," ",p,"\n",file="data1.txt", sep="\t", append=TRUE)
 	alpha<-x[1:3];
 	beta<-x[4:6];
-	
+	#print(x)
 	midterm<-c();
 	for(j in 1:3)
 	{			
 		local_sum<-0;
-		local_sum<-log(beta_prob(data,alpha[j],beta[j]))	
+		local_sum<-log(beta_prob(data,alpha[j],beta[j]))
+		#print (log(beta_prob(data,alpha[j],beta[j])))
 		local_sum<-(local_sum+log(p_[j]));
 		midterm<-append(midterm,local_sum);
 	}
@@ -84,9 +85,19 @@ prob<-function(z)
 
 m_step<-function(x,data,z,p)
 {
-	v<-optim(par=x,fn=mix_beta_model_log_function,data=data,p=p,z=z)
-	
-	return (v$par);
+	v<-tryCatch({
+				suppressWarnings(nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z,print.level=0))
+			},
+			error = function(cond){
+				return(NA)
+			},
+			warning= function(cond){
+				#print(cond)
+				return(NULL)
+			},
+			finally={}			
+	)
+	return (v);
 }
 #####
 
@@ -132,6 +143,7 @@ main_f<-function(filename)
 	counter<-0;
 	v<-c();
 	diff_log=1000000;
+	v_pre = ""
 	while(TRUE & counter < 100)
 	{
 		#cat("counter: ",counter," \n");
@@ -140,7 +152,20 @@ main_f<-function(filename)
 		#cat("p ",p,"\n");
 		#m-step
 		#v<-nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z)
-		v<-nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z,print.level=2)
+		#v<-nlm(f=mix_beta_model,p=x,data=data,p_=p,z=z,print.level=2)
+		v<-m_step(x,data,z,p)
+		
+		if(anyNA(v))
+		{
+			v<-v_pre;
+			break;
+		}
+		else
+		{
+			v_pre<-v;
+		}
+		
+		
 		if(length(v$estimate[v$estimate>50]))
 		{
 			break;
@@ -163,7 +188,7 @@ main_f<-function(filename)
 	#return (v)
 	#while
 	#output
-
+	x<-v$estimate
 	#rownames(z)<-d[,3];
 	#t<-z[z[,1]<z[,2] & z[,2]>z[,3],]
 	s<-seq(0.001,0.99,by=0.001)
@@ -174,7 +199,7 @@ main_f<-function(filename)
 	k[4,]<-dbeta(s,x[3],x[3+3])
 	k<-t(k);
 	t<-k[k[,2]<k[,3] & k[,3]>k[,4],]
-
+	
 	upper_bound<-max(t[,1])
 	lower_bound<-min(t[,1])
 	
@@ -186,7 +211,7 @@ main_f<-function(filename)
 	{
 		lower_bound<--25;
 		
-	}else if(lower_bound < -70)
+	}else if(lower_bound < -75)
 	{
 		lower_bound<- -50;
 	}
@@ -198,37 +223,16 @@ main_f<-function(filename)
 	{
 		upper_bound<- 25;
 	}
-
+	
 	border_matrix<-matrix(0,2,1)
 	border_matrix[1,]<-lower_bound
 	border_matrix[2,]<-upper_bound
-#	write.table( border_matrix, sep="\n", file="allele_count_population_corrected.base_call_pre_sw_allele_border", row.names=F,col.names=F)
 	write.table( border_matrix, sep="\n", file=outfile, row.names=F,col.names=F)
-
-
+	
+	
 }
 main_f(sliding_window_outcome)
 
-
-
-
-
-## expensiveBigLibraryFunction <- function(x,warning=function(w) {print(paste('warning:',w));browser()},error=function(e) {print(paste('e:',e));browser()}                                         ) 
-## {
-##    print(paste("big expensive step we don't want to repeat for x:",x))
-##    z <- x  # the "expensive operation" 
-##            # (not really, just standing in for computation)
-##    repeat 
-##     withRestarts(
-##            withRestarts(
-##                  tryCatch(   # you could call withCallingHandlers  # with identical arguments here, too
-##                  {
-##                       print(paste("attempt cheap operation for z:",z))
-##                       return(log(z))
-##                  },warning = warning,error = error),
-##                 flipArg = function() {z <<- -z} ),
-##             zapOutArg = function() {z <<- 1} ) 
-## }
 
 
 
