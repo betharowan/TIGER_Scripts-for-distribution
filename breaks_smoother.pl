@@ -9,7 +9,6 @@ use Time::HiRes;
 #use Constant_Math_lib;
 my % options=();
 use IO::Handle;
-autoflush STDOUT,1;
 
 
 my $break_file="";
